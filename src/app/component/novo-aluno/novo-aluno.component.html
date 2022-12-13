@@ -14,6 +14,16 @@
     <mat-label>E-mail</mat-label>
     <input matInput [(ngModel)]="data.email">
   </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Telefone</mat-label>
+    <input matInput [(ngModel)]="data.telefone">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Endereço</mat-label>
+    <input matInput [(ngModel)]="data.endereco">
+  </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>

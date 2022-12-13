@@ -3,10 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginPageComponent } from './login-page/login-page.component';
+import { LoginPageComponent } from './component/login-page/login-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {MatDialogModule} from "@angular/material/dialog"
+import {MatDialogModule, MatDialogRef, MAT_DIALOG_DATA} from "@angular/material/dialog"
 import {MatInputModule} from "@angular/material/input"
 import {MatFormFieldModule} from "@angular/material/form-field"
 import {MatButtonModule} from "@angular/material/button";
@@ -16,16 +16,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AngularFireModule } from "@angular/fire/compat"
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore"
-
-
 import { environment } from 'src/environments/environment';
 import { ExcelService } from './service/excel.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ListarAlunosComponent } from './component/listar-alunos/listar-alunos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
-    NovoAlunoComponent
+    NovoAlunoComponent,
+    ListarAlunosComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +40,14 @@ import { ExcelService } from './service/excel.service';
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    NgbModule,
+    MatDialogModule
   ],
   providers: [
+    {provide:MatDialogRef , useValue:{} },
+
+    { provide: MAT_DIALOG_DATA, useValue: {} },
     ExcelService,
   ],
   bootstrap: [AppComponent]
