@@ -1,42 +1,30 @@
-<div class="displayTable">
-    <div class="displayTableCell">
-      <div class="authBlock">
-        <h3>Acessa minha conta</h3>
-        <div class="formGroup">
-          <input
-            type="text"
-            class="formControl"
-            placeholder="Email"
-            #userName
-            required
-          />
-        </div>
-
-        <div class="formGroup">
-          <input
-            type="password"
-            class="formControl"
-            placeholder="Senha"
-            #userPassword
-            required/>
-        </div>
-
-        <div class="formGroup">
-          <input
-            type="button"
-            class="btn btnPrimary"
-            value="Entrar"
-            (click)="authService.SignIn(userName.value, userPassword.value)"
-          />
-        </div>
-
-        <div class="formGroup">
-          <span class="or"><span class="orInner">OU</span></span>
-        </div>
-
-        <div class="forgotPassword">
-          <span routerLink="/forgot-password">Esqueceu a senha?</span>
-        </div>
+<div class="login-screen d-flex align-items-center ">
+  <div class="container">
+    <div class="row justify-content-around">
+      <div class="col-md-6 col text-white p-4 black-overlay">
+        <h3 class="text-uppercase">Login</h3>
+        <hr />
+        <form>
+          <div class="form-group">
+            <label class="text-uppercase">E-mail</label>
+            <input type="email" class="form-control" #userName aria-describedby="emailHelp"
+              placeholder="exemplo@email.com" />
+            <small class="form-text  text-uppercase">Nunca compartilhe suas credenciais.</small>
+          </div>
+          <div class="form-group">
+            <label class="text-uppercase">Senha</label>
+            <input type="password" class="form-control" #userPassword placeholder="Senha" />
+          </div>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="inputCheck" />
+            <label class="form-check-label text-uppercase">Lembrar-me</label>
+          </div>
+          <button class="btn btn-primary text-uppercase"
+            (click)="authService.SignIn(userName.value, userPassword.value)">
+            Acessar
+          </button>
+        </form>
       </div>
     </div>
   </div>
+</div>

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AlunoService } from 'src/app/service/aluno.service';
 import { Aluno, NovoAlunoComponent } from '../novo-aluno/novo-aluno.component';
-import {MatDialog } from "@angular/material/dialog";
+import { MatDialog } from "@angular/material/dialog";
 import { ExcelService } from 'src/app/service/excel.service';
 import { AuthService } from 'src/app/service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listar-alunos',
@@ -12,13 +13,14 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class ListarAlunosComponent implements OnInit {
   title = 'Oraculo';
-  alunoList!:Aluno[];
+  alunoList!: Aluno[];
 
   constructor(
     private dialogService: MatDialog,
     private alunoService: AlunoService,
     private excelService: ExcelService,
     public authService: AuthService,
+    public router: Router
   ) { }
 
   ngOnInit(): void {
@@ -26,7 +28,7 @@ export class ListarAlunosComponent implements OnInit {
       this.alunoList = alunos.map(alunoItem => {
         const data = alunoItem.payload.doc.data() as Aluno
         const id = alunoItem.payload.doc.id
-        return {id , ...data}
+        return { id, ...data }
       })
     })
   }
@@ -35,7 +37,7 @@ export class ListarAlunosComponent implements OnInit {
     const dialogRef = this.dialogService.open(NovoAlunoComponent, {
       width: '400px',
       data: {
-        nome: '' ,
+        nome: '',
         cpf: '',
         email: '',
         telefone: '',
@@ -50,10 +52,10 @@ export class ListarAlunosComponent implements OnInit {
     });
   }
 
-  onEdit(item:Aluno){
+  onEdit(item: Aluno) {
     const dialogRef = this.dialogService.open(NovoAlunoComponent, {
       width: '400px',
-      data: {...item},
+      data: { ...item },
     });
 
     dialogRef.afterClosed().subscribe((res) => {
@@ -63,11 +65,16 @@ export class ListarAlunosComponent implements OnInit {
     });
   }
 
-  onDelete(item:Aluno){
+  onDelete(item: Aluno) {
     this.alunoService.deleteAluno(item)
   }
 
-  exportAsXLSX():void {
+  exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.alunoList, 'sample');
+  }
+
+  logout() {
+    this.authService.SignOut();
+    this.router.navigate(['']);
   }
 }
